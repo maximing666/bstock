@@ -20,7 +20,7 @@ def download_data(date):
         print(data_df)
        # sleep(2)
     bs.logout()
-    data_df.to_csv("D:\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
+    data_df.to_csv("D:\\bstock\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
     print(data_df)
 
 

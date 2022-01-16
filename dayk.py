@@ -2,7 +2,7 @@ import baostock as bs
 import pandas as pd
 import datetime
 
-nday=(datetime.date.today() + datetime.timedelta(days = -1)).strftime("%Y-%m-%d")
+nday=(datetime.date.today() + datetime.timedelta(days = -4)).strftime("%Y-%m-%d")
 
 def download_data(date):
     bs.login()
@@ -16,7 +16,7 @@ def download_data(date):
         k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close", date, date)
         data_df = data_df.append(k_rs.get_data())
     bs.logout()
-    data_df.to_csv("D:\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
+    data_df.to_csv("D:\\bstock\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
     print(data_df)
 
 
