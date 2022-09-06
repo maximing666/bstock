@@ -2,9 +2,10 @@ import baostock as bs
 import pandas as pd
 import datetime
 
-nday=(datetime.date.today() + datetime.timedelta(days = -4)).strftime("%Y-%m-%d")
+nday=(datetime.date.today() + datetime.timedelta(days = -16)).strftime("%Y-%m-%d")
 
 def download_data(date):
+    #### 登录系统 ####
     bs.login()
 
     # 获取指定日期的指数、股票数据
