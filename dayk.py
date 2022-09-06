@@ -1,8 +1,8 @@
 import baostock as bs
 import pandas as pd
 import datetime
+import time
 
-nday=(datetime.date.today() + datetime.timedelta(days = -16)).strftime("%Y-%m-%d")
 
 def download_data(date):
     #### 登陆系统 ####
@@ -25,6 +25,24 @@ def download_data(date):
 
 
 if __name__ == '__main__':
-    # 获取指定日期全部股票的日K线数据
-    #download_data("2021-12-31")
-    download_data(nday)
+    #开始时间
+    starttime = time.time()
+    
+    #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
+    startday = -14
+    endday = -13
+    while (startday <= endday):
+        nday = (datetime.date.today() + datetime.timedelta(days = startday)).strftime("%Y-%m-%d")
+        print(nday)
+        try:
+            # 获取指定日期全部股票的日K线数据
+            #download_data("2022-09-06")
+            download_data(nday)
+        except:
+            print(nday, "该日期无数据。")
+        startday = startday + 1
+    #结束时间
+    endtime = time.time()
+    #耗费时长(秒)
+    usetime = endtime - starttime
+    print("用时：", usetime/60, "分") 
