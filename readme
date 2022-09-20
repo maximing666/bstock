@@ -1,13 +1,13 @@
 1. 
 mysql root 123456;webuser 123456
 CREATE TABLE `bstock`.`Untitled`  (
-  `date` date NOT NULL COMMENT '交易日期',
+  `tdate` date NOT NULL COMMENT '交易日期',
   `code` varchar(255) NOT NULL COMMENT '股票代码',
   `open` double(255, 4) NOT NULL,
   `high` double(255, 4) NOT NULL,
   `low` double(255, 4) NOT NULL,
   `close` double(255, 4) NOT NULL,
-  PRIMARY KEY (`date`)
+  PRIMARY KEY (`tdate`)
 );
 
 2. dayk.py 获取某天前到某天前的数据。
