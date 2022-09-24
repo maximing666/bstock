@@ -29,8 +29,8 @@ if __name__ == '__main__':
     starttime = time.time()
     
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
-    startday = 0
-    endday = 0
+    startday = -25
+    endday = -21
     while (startday <= endday):
         nday = (datetime.date.today() + datetime.timedelta(days = startday)).strftime("%Y-%m-%d")
         print(nday)

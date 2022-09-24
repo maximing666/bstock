@@ -12,4 +12,6 @@ CREATE TABLE `bstock`.`Untitled`  (
 
 2. dayk.py 获取某天前到某天前的数据。
 
-3. writedb 读取excel后，再写入mysql数据库。
+3. writedb.py 读取excel后，再写入mysql数据库。
+
+4. bi.py读取mysql数据绘制图形。
