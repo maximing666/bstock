@@ -27,7 +27,6 @@ def eachFile(filepath):
        
 
 # 文件路径
-#fpath = r'D:\bstock\download\2022-09-19demo_assignDayData.csv'
 filepath = r'D:\bstock\download\dayk'
 for fpath in eachFile(filepath):
     df0 = pd.read_csv(fpath,encoding='utf-8',keep_default_na=True)
