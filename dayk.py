@@ -1,7 +1,9 @@
+# -*- coding: UTF-8 –*-
 import baostock as bs
 import pandas as pd
 import datetime
 import time
+import configparser
 
 
 def download_data(date):
@@ -20,7 +22,8 @@ def download_data(date):
         k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,tradestatus,pctChg,peTTM", date, date)
         data_df = data_df.append(k_rs.get_data())
     bs.logout()
-    data_df.to_csv("D:\\bstock\\download\\dayk\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
+    #data_df.to_csv("D:\\bstock\\download\\dayk\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
+    data_df.to_csv(downloadpath + nday + "demo_assignDayData.csv", encoding="gbk", index=False)
     print(data_df)
 
 
@@ -28,9 +31,20 @@ if __name__ == '__main__':
     #开始时间
     starttime = time.time()
     
+    #生成configparser对象
+    config = configparser.ConfigParser()
+    #读取配置文件
+    # conffilename = r'E:\github\bstock\config\config.ini'
+    conffilename = r'.\\config\\config.ini'
+    config.read(conffilename, encoding='utf-8')
+    #获取配置文件变量值
+    startday = int(config.get('dayk', 'startday'))
+    endday = int(config.get('dayk', 'endday'))
+    downloadpath = config.get('dayk', 'downloadpath')
+
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
-    startday = -25
-    endday = -21
+    # startday = -25
+    # endday = -21
     while (startday <= endday):
         nday = (datetime.date.today() + datetime.timedelta(days = startday)).strftime("%Y-%m-%d")
         print(nday)
