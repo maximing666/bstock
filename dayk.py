@@ -20,7 +20,7 @@ def download_data(date):
         k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,tradestatus,pctChg,peTTM", date, date)
         data_df = data_df.append(k_rs.get_data())
     bs.logout()
-    data_df.to_csv("D:\\bstock\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
+    data_df.to_csv("D:\\bstock\\download\\dayk\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
     print(data_df)
 
 
@@ -29,8 +29,8 @@ if __name__ == '__main__':
     starttime = time.time()
     
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
-    startday = -10
-    endday = -2
+    startday = 0
+    endday = 0
     while (startday <= endday):
         nday = (datetime.date.today() + datetime.timedelta(days = startday)).strftime("%Y-%m-%d")
         print(nday)
