@@ -15,3 +15,13 @@ CREATE TABLE `bstock`.`Untitled`  (
 3. writedb.py 读取excel后，再写入mysql数据库。
 
 4. bi.py读取mysql数据绘制图形。
+
+5. dupont.py 杜邦指标
+
+6. growth.py 成长能力
+
+
+
+
+原则：
+1. select * from dupont where year='2022' and quarter='2' and duponttaxburden > 0 and dupontnitogr > 0.05 and dupontnitogr> 0.2 ORDER BY dupontnitogr desc  limit 10;
