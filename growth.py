@@ -48,11 +48,11 @@ if filetb not in tbs:
         `quarter` varchar(255) NOT NULL COMMENT '季度', \
         `pubdate` date Default NULL COMMENT '发布日期', \
         `statdate` date Default NULL COMMENT '统计到最后一天日期', \
-        `yoyequity` decimal(15, 10)  DEFAULT 0 COMMENT '净资产同比增长率',  \
-        `yoyasset` decimal(15, 10)  DEFAULT 0 COMMENT '总资产同比增长率', \
-        `yoyni` decimal(15, 10)  DEFAULT 0 COMMENT '净利润同比增长率', \
-        `yoyepsbasic` decimal(15, 10)  DEFAULT 0 COMMENT '基本每股收益同比增长率', \
-        `yoypni` decimal(15, 10)  DEFAULT 0 COMMENT '归属母公司股东净利润同比增长率', \
+        `yoyequity` decimal(20, 10)  DEFAULT 0 COMMENT '净资产同比增长率',  \
+        `yoyasset` decimal(20, 10)  DEFAULT 0 COMMENT '总资产同比增长率', \
+        `yoyni` decimal(20, 10)  DEFAULT 0 COMMENT '净利润同比增长率', \
+        `yoyepsbasic` decimal(20, 10)  DEFAULT 0 COMMENT '基本每股收益同比增长率', \
+        `yoypni` decimal(20, 10)  DEFAULT 0 COMMENT '归属母公司股东净利润同比增长率', \
         PRIMARY KEY (`code`,`year`,`quarter`));"%(filetb)
     print(sql)
     cur.execute(sql)
