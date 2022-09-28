@@ -76,13 +76,12 @@ lg = bs.login()
 print('login respond error_code:'+lg.error_code)
 print('login respond  error_msg:'+lg.error_msg)
 
-for code in tbs:
-    print(code)
-    nowyear = datetime.date.today().year
-    i = 2010
-    while(i <= nowyear):
-        j = 4
-        while(j >= 1):
+nowyear = datetime.date.today().year
+i = 2010
+while(i <= nowyear):
+    j = 1
+    while(j <= 4):
+        for code in tbs:
             # 查询杜邦指数
             growth_list = []
             rs_growth = bs.query_growth_data(code=code, year=i, quarter=j)
@@ -101,10 +100,12 @@ for code in tbs:
                     print("主键已存在。")
             else:
                 print(code, i, j, "Have no data..")
-                #break            
-            j = j - 1
-        i = i + 1
-    connection.commit()
+                #break 
+        connection.commit()           
+        j = j + 1
+    i = i + 1
+    
+
 #关闭mysql连接
 connection.close()
 # 登出系统
