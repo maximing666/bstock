@@ -23,10 +23,12 @@ downloadpath = config.get('dayk', 'downloadpath')
 importedpath = config.get('dayk', 'importedpath')
 
 connection = pymysql.connect(host = mysqlhost, #host属性
-                             user = mysqluser, #用户名 
-                             password = mysqlpwd,  #此处填登录数据库的密码
-                             db = mysqldb #数据库名
-                             )
+                            user = mysqluser, #用户名 
+                            user = mysqluser, #用户名 
+                            user = mysqluser, #用户名 
+                            password = mysqlpwd,  #此处填登录数据库的密码
+                            db = mysqldb #数据库名
+                            )
 #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
 #光标对象作用是：、创建、删除、写入、查询等等
 cur = connection.cursor()
@@ -39,8 +41,6 @@ def eachFile(filepath):
         child = os.path.join('%s\%s' % (filepath, allDir))
         list1.append(child )
     return list1
-       
-       
 
 # 文件路径
 # downloadpath = r"D:\\bstock\\download\\dayk\\"
