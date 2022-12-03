@@ -15,10 +15,10 @@ import os
 config = configparser.ConfigParser()
 #读取配置文件
 #conffilename = r'D:\github\bstock\config\config.ini'
-conffilename = './bstock/config/config.ini'
+conffilename = './config/config.ini'
 config.read(conffilename, encoding='utf-8')
 #获取配置文件变量值
-print(config.sections())
+print('配置文件信息：', config.sections())
 mysqlhost = config.get('mysql', 'host')
 mysqluser = config.get('mysql', 'user')
 mysqlpwd = config.get('mysql', 'password')
@@ -82,7 +82,7 @@ print('login respond  error_msg:'+lg.error_msg)
 for code in tbs:
     print(code)
     nowyear = datetime.date.today().year
-    i = 2010
+    i = nowyear
     while(i <= nowyear):
         j = 4
         while(j >= 1):
