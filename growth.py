@@ -15,7 +15,7 @@ import os
 config = configparser.ConfigParser()
 #读取配置文件
 #conffilename = r'D:\github\bstock\config\config.ini'
-conffilename = './bstock/config/config.ini'
+conffilename = './config/config.ini'
 config.read(conffilename, encoding='utf-8')
 #获取配置文件变量值
 mysqlhost = config.get('mysql', 'host')
@@ -77,10 +77,10 @@ print('login respond error_code:'+lg.error_code)
 print('login respond  error_msg:'+lg.error_msg)
 
 nowyear = datetime.date.today().year
-i = 2010
+i = nowyear
 while(i <= nowyear):
-    j = 1
-    while(j <= 4):
+    j = 3
+    while(j >= 1):
         for code in tbs:
             # 查询杜邦指数
             growth_list = []
@@ -102,7 +102,7 @@ while(i <= nowyear):
                 print(code, i, j, "Have no data..")
                 #break 
         connection.commit()           
-        j = j + 1
+        j = j - 1
     i = i + 1
     
 
