@@ -19,6 +19,7 @@ def fetch():
     mysqluser = config.get('mysql', 'user')
     mysqlpwd = config.get('mysql', 'password')
     mysqldb = config.get('mysql', 'daykdb')
+    updays = int(config.get('result_days_up', 'updays'))
 
 
     #连接MySQL数据库
@@ -46,24 +47,29 @@ def fetch():
         finally:
             i = i + 1
     
-    code_list=[]
-    days=3
+    code_list=[]    
+    
     for tb  in tbs: 
-        sql="select date_format(tdate,'%Y-%m-%d'),code,pctchg from `"+mysqldb+"`.`%s` order by tdate desc limit %s;"%(tb,days)
+        sql="select date_format(tdate,'%Y-%m-%d'),code,pctchg from `"+mysqldb+"`.`%s` order by tdate desc limit %s;"%(tb,updays)
         cur.execute(sql)
         r=cur.fetchall()
-        #print(r)
-        j=0
-        flag=0
-        while j<days:            
-            if r[j][2]>0 :
-                flag=flag+1
-            else:
-                break
-            j=j+1
-        if flag == days:
-            print(tb,'true')
-            code_list.append(r[j][1])
+        r_len=len(r)
+        print(r)
+        if r_len == updays:        
+            j=0
+            flag=0
+            while j<updays:
+                print(r,r_len,' j=',j)            
+                if r[j][2]>0 :
+                    flag=flag+1
+                else:
+                    break
+                j=j+1
+            if flag == updays:
+                print(tb,'true')
+                print(r)
+                code_list.append(r[0][1])
+        
 
     #关闭mysql连接
     connection.close()

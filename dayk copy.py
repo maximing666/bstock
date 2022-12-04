@@ -4,12 +4,10 @@ import pandas as pd
 import datetime
 import time
 import configparser
-
+import os
 
 
 def download_data(date):
-    print(main.downloadpath)
-    time.sleep(100)
     #### 登陆系统 ####
     lg = bs.login()
     # 显示登陆返回信息
@@ -30,9 +28,10 @@ def download_data(date):
     print(data_df)
 
 
-def main():
+if __name__ == '__main__':
     #开始时间
     starttime = time.time()
+    
     #生成configparser对象
     config = configparser.ConfigParser()
     #读取配置文件
@@ -62,5 +61,3 @@ def main():
     #耗费时长(秒)
     usetime = endtime - starttime
     print("用时：", usetime/60, "分") 
-
-main()    
