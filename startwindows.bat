@@ -1,0 +1,1 @@
+cd /d D:\github\bstock && conda activate bstock && python daykcopy.py && python writedayk.py && python result_days_upcopy.py

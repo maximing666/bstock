@@ -35,7 +35,8 @@ def fetch():
     codes = cur.execute(sql)
     tbs = [i[0] for i in cur.fetchall()]
     for i in ('codeinfo','dupont','growth'):
-        tbs.remove(i)
+        if i in tbs:
+            tbs.remove(i)
     i = 1
     while(i<1000):
         k = str(i)        

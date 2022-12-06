@@ -17,5 +17,5 @@ def send_qyweixin(s, webhook):
     print(r)
 sendresult= result_choice.fetch()
 print(sendresult)
-#send_qyweixin(sendresult, webhook)
+send_qyweixin(sendresult, webhook)
 
