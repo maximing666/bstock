@@ -20,5 +20,5 @@ sendresult= str(result_days_upcopy.fetch())
 #t=['sh.600766', 'sh.603768', 'sh.688196', 'sh.688381', 'sh.688557', 'sh.688622', 'sz.001259', 'sz.002987'] 
 #sendresult=str(t)
 print(sendresult)
-send_qyweixin(datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "- " + str(sendresult), webhook)
+send_qyweixin(datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + " " + str(sendresult), webhook)
 

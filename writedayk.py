@@ -92,4 +92,4 @@ def main():
         sleep(30)
     connection.close()
 
-#main()
+main()
