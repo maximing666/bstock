@@ -51,26 +51,18 @@ def fetch():
     code_list=[]    
     
     for tb  in tbs: 
-        sql="select date_format(tdate,'%Y-%m-%d'),code,pctchg from `"+mysqldb+"`.`%s` order by tdate desc limit %s;"%(tb,updays)
+        sql="select date_format(tdate,'%Y-%m-%d'),code,pctchg,amount from `"+mysqldb+"`.`%s` order by tdate desc limit %s;"%(tb,updays)
         cur.execute(sql)
         r=cur.fetchall()
         r_len=len(r)
         print(r)
-        if r_len == updays:        
-            j=0
-            flag=0
-            while j<updays:
-                print(r,r_len,' j=',j)            
-                if r[j][2]>0 :
-                    flag=flag+1
-                else:
-                    break
-                j=j+1
-            if flag == updays:
+        if r_len == updays: 
+            #  涨跌幅、成交金额连续上涨     
+            if all([r[n][2]>0  for n in range(r_len)]) and all([r[n][2] > r[n+1][2] and r[n][3] > r[n+1][3] for n in range(r_len -1)]):
                 print(tb,'true')
                 print(r)
                 code_list.append(r[0][1])
-        
+       
 
     #关闭mysql连接
     connection.close()
