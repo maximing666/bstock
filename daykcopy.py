@@ -5,6 +5,7 @@ import datetime
 import time
 import configparser
 import os
+import t3
 
 
 def download_data(date):
@@ -29,6 +30,7 @@ def download_data(date):
 
 
 if __name__ == '__main__':
+    t3.Logger()
     #开始时间
     starttime = time.time()
     

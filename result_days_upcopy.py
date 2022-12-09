@@ -5,6 +5,7 @@ import datetime
 import configparser
 import pymysql
 from pymysql import IntegrityError
+import t3
 
 
 def fetch():
@@ -71,4 +72,5 @@ def fetch():
     return(code_list) 
     
 if __name__ == '__main__':
+    t3.Logger()
     fetch()

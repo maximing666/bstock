@@ -15,4 +15,4 @@ file_handler.setFormatter(formatter)
 # 绑定渠道到日志收集器
 log.addHandler(file_handler)
 
-print("1")
+log.info("123")

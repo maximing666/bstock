@@ -7,6 +7,9 @@ import pandas as pd
 import os
 import shutil
 import configparser
+import logging
+import t3
+
 
 #生成configparser对象
 config = configparser.ConfigParser()
@@ -40,11 +43,14 @@ def eachFile(filepath):
         list1.append(child )
     return list1
 
-def main():
+if __name__ == '__main__':
+    t3.Logger()
     # 文件路径
     # downloadpath = r"D:\\bstock\\download\\dayk\\"
     # importedpath = r'D:\\bstock\\imported\\dayk\\'
+    print("源文件：",eachFile(downloadpath))    
     for fpath in eachFile(downloadpath):
+        print(fpath)
         df0 = pd.read_csv(fpath,encoding='utf-8',keep_default_na=True)
         #将表格中空值补充为0
         df = df0.fillna(0)
@@ -87,9 +93,8 @@ def main():
                 print("主键已存在。")
             finally:
                 connection.commit()
-        #处理完文件后，将文件迁移到新目录    
+        #处理完文件后，将文件迁移到新目录
         shutil.move(fpath,importedpath)
-        sleep(30)
+        sleep(3)
     connection.close()
 
-main()

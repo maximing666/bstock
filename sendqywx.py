@@ -2,7 +2,9 @@
 import result_days_upcopy
 import requests
 import datetime
+import t3
 
+t3.Logger()
 headers = {'Content-Type': 'text/plain'}
 webhook = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ba5e976c-fad4-48d4-9c09-43d077d44cbf"
 
