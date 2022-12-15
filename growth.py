@@ -9,8 +9,9 @@ import configparser
 import pymysql
 from pymysql import IntegrityError
 import os
+import t3
 
-
+t3.Logger()
 #生成configparser对象
 config = configparser.ConfigParser()
 #读取配置文件

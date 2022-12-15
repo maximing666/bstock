@@ -35,14 +35,14 @@ connection = pymysql.connect(host = mysqlhost, #host属性
 cur = connection.cursor()
 sql = "show tables;"
 codes = cur.execute(sql)
-tbs = [i[0] for i in cur.fetchall()]
+tbs1 = [i[0] for i in cur.fetchall()]
 
 filetb = 'codeinfo'
 # sql="drop table `%s`;"%(filetb)
 # print(sql)
 # cur.execute(sql)
 
-if filetb not in tbs: 
+if filetb not in tbs1: 
     sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
         `code` varchar(255) NOT NULL COMMENT '股票代码', \
         `codename` varchar(255) NULL COMMENT '股票名称', \
@@ -52,12 +52,12 @@ if filetb not in tbs:
         `status` varchar(255) NULL COMMENT '上市状态。其中1上市0退市', \
         PRIMARY KEY (`code`));"%(filetb)
     cur.execute(sql)
-else:
-    tbs.remove(filetb)
 
 #去除tbs表名列表中非证券名。
-tbs.remove('dupont')
-tbs.remove('growth')
+tbs = []
+for i in tbs1:
+    if i.startswith("sh.") or i.startswith("sz."):
+        tbs.append(i)
 
 # 登陆系统
 lg = bs.login()

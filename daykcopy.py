@@ -4,11 +4,10 @@ import pandas as pd
 import datetime
 import time
 import configparser
-import os
-import t3
+# import t3
 
 
-def download_data(date):
+def download_data(day):
     #### 登陆系统 ####
     lg = bs.login()
     # 显示登陆返回信息
@@ -16,24 +15,32 @@ def download_data(date):
     print('login respond  error_msg:'+lg.error_msg)
 
     # 获取指定日期的指数、股票数据
-    stock_rs = bs.query_all_stock(date)
+    stock_rs = bs.query_all_stock(day)
     stock_df = stock_rs.get_data()
-    data_df = pd.DataFrame()
+    l = []
+    for i in stock_df["code"]:
+        print(i)
     for code in stock_df["code"]:
-        print("date:" + date + " Downloading :" + code)
-        k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,tradestatus,pctChg,peTTM", date, date)
-        data_df = data_df.append(k_rs.get_data())
+        print(day + " Downloading :" + code)
+        k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,tradestatus,pctChg,peTTM", start_date=day, end_date=day,frequency="d", adjustflag="3")
+        if (k_rs.error_code == '0'):
+            # print("===",k_rs.get_row_data(),"---",k_rs.error_code,"++++",type(k_rs.get_row_data()))
+            l.append(k_rs.get_row_data())   
+            
+      
     bs.logout()
     #data_df.to_csv("D:\\bstock\\download\\dayk\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
-    data_df.to_csv(downloadpath + nday + "demo_assignDayData.csv", encoding="gbk", index=False)
-    print(data_df)
+    
+    result = pd.DataFrame(l, columns=k_rs.fields) 
+    result.to_csv(downloadpath + day + "demo_assignDayData.csv", encoding="gbk", index=False)
+    # print(result)
 
 
-if __name__ == '__main__':
-    t3.Logger()
+if __name__=='__main__':
+    # t3.Logger()
     #开始时间
     starttime = time.time()
-    
+
     #生成configparser对象
     config = configparser.ConfigParser()
     #读取配置文件
@@ -44,7 +51,6 @@ if __name__ == '__main__':
     startday = int(config.get('dayk', 'startday'))
     endday = int(config.get('dayk', 'endday'))
     downloadpath = config.get('dayk', 'downloadpath')
-
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
     # startday = -25
     # endday = -21
@@ -53,7 +59,6 @@ if __name__ == '__main__':
         print(nday)
         try:
             # 获取指定日期全部股票的日K线数据
-            #download_data("2022-09-06")
             download_data(nday)
         except:
             print(nday, "该日期无数据。")

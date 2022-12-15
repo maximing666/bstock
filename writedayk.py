@@ -7,8 +7,7 @@ import pandas as pd
 import os
 import shutil
 import configparser
-import logging
-import t3
+# import t3
 
 
 #生成configparser对象
@@ -44,7 +43,7 @@ def eachFile(filepath):
     return list1
 
 if __name__ == '__main__':
-    t3.Logger()
+    # t3.Logger()
     # 文件路径
     # downloadpath = r"D:\\bstock\\download\\dayk\\"
     # importedpath = r'D:\\bstock\\imported\\dayk\\'
@@ -82,7 +81,20 @@ if __name__ == '__main__':
             
             if filetb not in tbs:
                 #print("out",tbs) 
-                sql="CREATE TABLE `"+mysqldb+"`.`%s`  (`tdate` date NOT NULL COMMENT '交易日期',  `code` varchar(255) NOT NULL COMMENT '股票代码',  `open` double(255, 4) NOT NULL COMMENT '开盘',  `high` double(255, 4) NOT NULL COMMENT '最高',  `low` double(255, 4) NOT NULL COMMENT '最低',  `close` double(255, 4) NOT NULL COMMENT '收盘', `volume` bigint(255) Default NULL COMMENT '成交数量', `amount` double(255, 4) Default NULL COMMENT '成交金额', `turn` double(255, 6) Default NULL COMMENT '换手率', `tradestatus` int(4) NOT NULL COMMENT '交易状态', `pctchg` double(255, 6) Default NULL COMMENT '涨跌幅', `pettm` double(255, 6) NOT NULL COMMENT '滚动市盈率',  PRIMARY KEY (`tdate`));"%(filetb)
+                sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
+                    `tdate` date NOT NULL COMMENT '交易日期', \
+                    `code` varchar(255) NOT NULL COMMENT '股票代码',  \
+                    `open` double(255, 4) NOT NULL COMMENT '开盘',  \
+                    `high` double(255, 4) NOT NULL COMMENT '最高',  \
+                    `low` double(255, 4) NOT NULL COMMENT '最低',  \
+                    `close` double(255, 4) NOT NULL COMMENT '收盘', \
+                    `volume` bigint(255) Default NULL COMMENT '成交数量', \
+                    `amount` double(255, 4) Default NULL COMMENT '成交金额', \
+                    `turn` double(255, 6) Default NULL COMMENT '换手率', \
+                    `tradestatus` int(4) NOT NULL COMMENT '交易状态', \
+                    `pctchg` double(255, 6) Default NULL COMMENT '涨跌幅', \
+                    `pettm` double(255, 6) NOT NULL COMMENT '滚动市盈率',  \
+                    PRIMARY KEY (`tdate`));"%(filetb)
                 cur.execute(sql)
             sql="insert into `"+mysqldb+"`.`%s`(tdate,code,open,high,low,close,volume,amount,turn,tradestatus,pctchg,pettm) values ('%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s); "%(code,tdate,code,open,high,low,close,volume,amount,turn,tradestatus,pctchg,pettm)
             print(sql)

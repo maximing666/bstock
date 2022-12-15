@@ -16,8 +16,8 @@ class Logger(object):
         pass
 
 
-sys.stdout = Logger(stream1=sys.stdout)
+# sys.stdout = Logger(stream1=sys.stdout)
 sys.stderr = Logger(stream2=sys.stderr)
 
 # now it works
-print(str(datetime.datetime.now()))
+#print(str(datetime.datetime.now()))

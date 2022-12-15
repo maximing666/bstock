@@ -5,7 +5,7 @@ import datetime
 import configparser
 import pymysql
 from pymysql import IntegrityError
-import t3
+# import t3
 
 
 def fetch():
@@ -33,44 +33,97 @@ def fetch():
     #光标对象作用是：、创建、删除、写入、查询等等
     cur = connection.cursor()
     sql = "show tables;"
-    codes = cur.execute(sql)
-    tbs = [i[0] for i in cur.fetchall()]
-    for i in ('codeinfo','dupont','growth'):
-        if i in tbs:
-            tbs.remove(i)
-    i = 1
-    while(i<1000):
-        k = str(i)        
-        j = 'sh.' + k.zfill(6)
-        try:
-            tbs.remove(j)  
-        except ValueError:
-            print('tbs list have no this value:', j)
-        finally:
-            i = i + 1
+    cur.execute(sql)
+    tbs1 = [i[0] for i in cur.fetchall()]
+    tbs = []
+    for i in tbs1:
+        if i.startswith("sh.") or i.startswith("sz."):
+            tbs.append(i)
+          
+    # 去除sh.000001到sh.100000
+    # i = 1
+    # while(i<1000):
+    #     k = str(i)        
+    #     j = 'sh.' + k.zfill(6)
+    #     try:
+    #         tbs.remove(j)  
+    #     except ValueError:
+    #         print('tbs list have no this value:', j)
+    #     finally:
+    #         i = i + 1
     
     code_list=[]    
     
     for tb  in tbs: 
-        sql="select date_format(tdate,'%Y-%m-%d'),code,pctchg,amount from `"+mysqldb+"`.`%s` order by tdate desc limit %s;"%(tb,updays)
+        sql="select date_format(tdate,'%Y-%m-%d'),a.code,b.codename,a.pctchg,a.amount from `"+mysqldb+"`.`%s` a,codeinfo b where  a.code = b.code order by a.tdate desc limit %s;"%(tb,updays)
         cur.execute(sql)
         r=cur.fetchall()
         r_len=len(r)
         print(r)
         if r_len == updays: 
             #  涨跌幅、成交金额连续上涨     
-            if all([r[n][2]>0  for n in range(r_len)]) and all([r[n][2] > r[n+1][2] and r[n][3] > r[n+1][3] for n in range(r_len -1)]):
-                print(tb,'true')
-                print(r)
-                code_list.append(r[0][1])
-       
+            if all([r[n][3]>0  for n in range(r_len)]) and all([r[n][3] > r[n+1][3] and r[n][4] > r[n+1][4] for n in range(r_len -1)]):
+                # print(tb,'true')
+                code_list.append((r[0][1],r[0][2]))
 
     #关闭mysql连接
     connection.close()
 
     print("近期连续上涨：",code_list)    
     return(code_list) 
-    
+
+def put_viewrecommend():
+    #生成configparser对象
+    config = configparser.ConfigParser()
+    #读取配置文件
+    #conffilename = r'D:\github\bstock\config\config.ini'
+    conffilename = './config/config.ini'
+    config.read(conffilename, encoding='utf-8')
+    #获取配置文件变量值
+    mysqlhost = config.get('mysql', 'host')
+    mysqluser = config.get('mysql', 'user')
+    mysqlpwd = config.get('mysql', 'password')
+    mysqldb = config.get('mysql', 'daykdb')
+
+
+    #连接MySQL数据库
+    connection = pymysql.connect(host = mysqlhost, #host属性
+                                user = mysqluser, #用户名 
+                                password = mysqlpwd,  #此处填登录数据库的密码
+                                db = mysqldb #数据库名
+                                )
+    #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
+    #光标对象作用是：、创建、删除、写入、查询等等
+    cur = connection.cursor()
+    sql = "show tables;"
+    cur.execute(sql)
+    tbs = [i[0] for i in cur.fetchall()]
+    #创建推荐表
+    viewtb='viewrecommend'
+    # sql="drop table `%s`;"%(filetb)
+    # print(sql)
+    # cur.execute(sql)
+    vtext1 = str(fetch())
+    vtext = vtext1.replace("'","")
+    print(vtext)
+    if viewtb not in tbs:
+        #print("out",tbs) 
+        sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
+            `vdate` date NOT NULL COMMENT '推荐日期', \
+            `vtext` varchar(512) NOT NULL COMMENT '推荐内容',  \
+            PRIMARY KEY (`vdate`));"%(viewtb)
+        cur.execute(sql)
+    sql="insert into `"+mysqldb+"`.`%s`(vdate,vtext) values ('%s','%s'); "%(viewtb,datetime.datetime.now().strftime('%Y-%m-%d'),vtext)
+    print(sql) 
+    try:
+        cur.execute(sql)
+    except IntegrityError as duplicate_err:
+        print("主键已存在。")
+    finally:
+        connection.commit()
+    connection.close()
+
 if __name__ == '__main__':
-    t3.Logger()
-    fetch()
+    # t3.Logger()
+    # fetch()
+    put_viewrecommend()
