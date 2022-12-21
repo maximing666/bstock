@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # 文件路径
     # downloadpath = r"D:\\bstock\\download\\dayk\\"
     # importedpath = r'D:\\bstock\\imported\\dayk\\'
-    print("源文件：",eachFile(downloadpath))    
+    print("源文件：",eachFile(downloadpath))  
     for fpath in eachFile(downloadpath):
         print(fpath)
         df0 = pd.read_csv(fpath,encoding='utf-8',keep_default_na=True)
@@ -106,7 +106,12 @@ if __name__ == '__main__':
             finally:
                 connection.commit()
         #处理完文件后，将文件迁移到新目录
-        shutil.move(fpath,importedpath)
+        try:
+            shutil.move(fpath,importedpath)
+        except OSError:
+            fname = fpath.split('/')[-1]
+            os.remove(importedpath + fname)
+            shutil.move(fpath,importedpath)
         sleep(3)
     connection.close()
 
