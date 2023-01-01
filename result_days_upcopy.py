@@ -69,8 +69,8 @@ def fetch():
     #关闭mysql连接
     connection.close()
 
-    print("近期连续上涨：",code_list)    
-    return(code_list) 
+    viewresult = str(updays)+"日涨：",code_list  
+    return(viewresult) 
 
 def put_viewrecommend():
     #生成configparser对象
@@ -110,8 +110,7 @@ def put_viewrecommend():
         #print("out",tbs) 
         sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
             `vdate` date NOT NULL COMMENT '推荐日期', \
-            `vtext` varchar(512) NOT NULL COMMENT '推荐内容',  \
-            PRIMARY KEY (`vdate`));"%(viewtb)
+            `vtext` varchar(512) NOT NULL COMMENT '推荐内容';"%(viewtb)
         cur.execute(sql)
     sql="insert into `"+mysqldb+"`.`%s`(vdate,vtext) values ('%s','%s'); "%(viewtb,datetime.datetime.now().strftime('%Y-%m-%d'),vtext)
     print(sql) 
@@ -122,6 +121,7 @@ def put_viewrecommend():
     finally:
         connection.commit()
     connection.close()
+    return(vtext)
 
 if __name__ == '__main__':
     # t3.Logger()

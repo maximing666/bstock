@@ -18,7 +18,7 @@ def send_qyweixin(s, webhook):
     }
     r = requests.post(url=webhook, headers=headers, json=data)
     print(r)
-sendresult= str(result_days_upcopy.fetch())
+sendresult= str(result_days_upcopy.put_viewrecommend())
 #t=['sh.600766', 'sh.603768', 'sh.688196', 'sh.688381', 'sh.688557', 'sh.688622', 'sz.001259', 'sz.002987'] 
 #sendresult=str(t)
 print(sendresult)
