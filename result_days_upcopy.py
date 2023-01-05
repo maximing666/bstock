@@ -55,17 +55,18 @@ def fetch():
     code_list=[]    
     while len(code_list) >= 0 :
         for tb  in tbs: 
-            sql="select date_format(tdate,'%Y-%m-%d'),a.code,b.codename,a.pctchg,a.amount from `"+mysqldb+"`.`%s` a,codeinfo b where  a.code = b.code order by a.tdate desc limit %s;"%(tb,updays)
+            sql="select date_format(tdate,'%Y-%m-%d'),a.code,b.codename,a.pctchg,a.amount,a.close from `"+mysqldb+"`.`%s` a,codeinfo b where  a.code = b.code order by a.tdate desc limit %s;"%(tb,updays)
             cur.execute(sql)
             r=cur.fetchall()
             r_len=len(r)
-            print(r)
+            #print(r)
             if r_len == updays: 
                 #  涨跌幅、成交金额连续上涨     
                 if all([r[n][3]>0  for n in range(r_len)]) and all([r[n][3] > r[n+1][3] and r[n][4] > r[n+1][4] for n in range(r_len -1)]):
                     # print(tb,'true')
-                    code_list.append((r[0][1],r[0][2]))
-        print(updays,"days,result long:",len(code_list))
+                    code_list.append((r[0][1],r[0][2],'%.2f%%'%((r[0][5]/r[updays-1][5]-1)*100)))
+        code_list.sort(key=lambda x:x[2],reverse=True)
+        print(updays,"days,result long:",len(code_list),code_list)
         sleep(5)
         if len(code_list) > 1:            
             updays = updays + 1
@@ -74,6 +75,8 @@ def fetch():
         elif len(code_list) == 0:
             code_list = code_list_tmp
             updays = updays - 1
+            break
+        else:
             break
 
     #关闭mysql连接
@@ -114,7 +117,7 @@ def put_viewrecommend():
     # cur.execute(sql)
     vtext1 = str(fetch())
     vtext = vtext1.replace("'","")
-    print(vtext)
+    #print(vtext)
     if viewtb not in tbs:
         #print("out",tbs) 
         sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
@@ -122,7 +125,7 @@ def put_viewrecommend():
             `vtext` varchar(1024) NOT NULL COMMENT '推荐内容';"%(viewtb)
         cur.execute(sql)
     sql="insert into `"+mysqldb+"`.`%s`(vdate,vtext) values ('%s','%s'); "%(viewtb,datetime.datetime.now().strftime('%Y-%m-%d'),vtext)
-    print(sql) 
+    #print(sql) 
     try:
         cur.execute(sql)
     except IntegrityError as duplicate_err:

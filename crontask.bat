@@ -12,4 +12,5 @@ cd /d D:\github\bstock && conda activate bstock && python daykcopy.py && python 
 ::关闭网卡
 ping -n 5 www.baidu.com
 netsh interface set interface "WLAN" disable
-pause
+::pause
+@cmd /k
