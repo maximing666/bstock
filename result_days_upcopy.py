@@ -70,7 +70,7 @@ def fetch():
         print(updays,"days,result long:",len(code_list),code_list)        
         sleep(5)
         if len(code_list) >= 1:          
-            code_list.insert(0,("("+str(updays)+"日涨"+str(len(code_list))+"只)")) 
+            code_list.insert(0,("("+str(updays)+"日涨"+str(len(code_list))+"只--------------------)")) 
             updays = updays + 1
             viewresult = code_list + viewresult
             code_list_tmp = code_list.copy()
