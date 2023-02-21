@@ -53,6 +53,7 @@ def fetch():
     #         i = i + 1
     
     code_list=[]    
+    viewresult=[]
     while len(code_list) >= 0 :
         for tb  in tbs: 
             sql="select date_format(tdate,'%Y-%m-%d'),a.code,b.codename,a.pctchg,a.amount,a.close from `"+mysqldb+"`.`%s` a,codeinfo b where  a.code = b.code order by a.tdate desc limit %s;"%(tb,updays)
@@ -66,10 +67,12 @@ def fetch():
                     # print(tb,'true')
                     code_list.append((r[0][1],r[0][2],'%.2f%%'%((r[0][5]/r[updays-1][5]-1)*100)))
         code_list.sort(key=lambda x:x[2],reverse=True)
-        print(updays,"days,result long:",len(code_list),code_list)
+        print(updays,"days,result long:",len(code_list),code_list)        
         sleep(5)
-        if len(code_list) > 1:            
+        if len(code_list) >= 1:          
+            code_list.insert(0,("("+str(updays)+"日涨"+str(len(code_list))+"只)")) 
             updays = updays + 1
+            viewresult = code_list + viewresult
             code_list_tmp = code_list.copy()
             code_list.clear()
         elif len(code_list) == 0:
@@ -81,7 +84,7 @@ def fetch():
 
     #关闭mysql连接
     connection.close()
-    viewresult = str(updays)+"日涨"+str(len(code_list))+"只：)",code_list  
+    #viewresult = str(updays)+"日涨"+str(len(code_list))+"只：)",code_list 
     return(viewresult) 
 
 def put_viewrecommend():

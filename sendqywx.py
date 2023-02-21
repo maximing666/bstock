@@ -23,5 +23,6 @@ sendresult= str(result_days_upcopy.put_viewrecommend())
 #sendresult=str(t)
 sendresult = sendresult.replace('),',')\n')
 print(sendresult)
-send_qyweixin(datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "\n " + sendresult, webhook)
+#发微信消息
+#send_qyweixin(datetime.datetime.now().strftime('%Y-%m-%d %H:%M') + "\n " + sendresult, webhook)
 
