@@ -5,6 +5,7 @@ import datetime
 import configparser
 import pymysql
 from pymysql import IntegrityError
+from natsort import natsorted
 # import t3
 
 
@@ -66,10 +67,11 @@ def fetch():
                 if all([r[n][3]>0  for n in range(r_len)]) and all([r[n][3] > r[n+1][3] and r[n][4] > r[n+1][4] for n in range(r_len -1)]):
                     # print(tb,'true')
                     code_list.append((r[0][1],r[0][2],'%.2f%%'%((r[0][5]/r[updays-1][5]-1)*100)))
-        code_list.sort(key=lambda x:x[2],reverse=True)
+        #按百分比进行排序
+        code_list=natsorted(seq=code_list,key=lambda x:x[2],reverse=True)
         print(updays,"days,result long:",len(code_list),code_list)        
         sleep(5)
-        if len(code_list) >= 1:          
+        if len(code_list) >= 1:                  
             code_list.insert(0,("("+str(updays)+"日涨"+str(len(code_list))+"只--------------------)")) 
             updays = updays + 1
             viewresult = code_list + viewresult
