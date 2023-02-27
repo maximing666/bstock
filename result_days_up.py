@@ -62,7 +62,7 @@ def fetch():
                 print(r,r_len,' j=',j)            
                 if r[j][2]>0 :
                     if j+1<r_len:
-                    flag=flag+1
+                        flag = flag+1
                 else:
                     break
                 j=j+1
