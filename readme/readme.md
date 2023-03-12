@@ -1,3 +1,12 @@
+---
+title: "文章标题"
+output:
+    word_document:
+        path: xxx.docx
+        toc: true
+        toc_depth: 6
+        number_sections: true
+---
 ## 1. 数据结构
 ##### 1.1 数据表
 
@@ -18,8 +27,27 @@ CREATE TABLE `bstock`.`Untitled`  (
   PRIMARY KEY (`tdate`)
 );
 
-2. dayk.py 获取某天前到某天前的数据。
-
+### 2. dayk_one.py 获取某天前到某天前的数据。
+| 参数名称 |参数描述 |算法说明 |
+| --- | --- | --- |
+| date |交易所行情日期 | |
+| code |	证券代码 |	 |
+| open |	开盘价 |	 |
+| high |	最高价 |	 |
+| low |	最低价 |	 |
+| close |	收盘价 |	 |
+| preclose |	前收盘价 |	见表格下方详细说明 |
+| volume |	成交量（累计  单位：股） |	|
+| amount |	成交额（单位：人民币元） |	 |
+| adjustflag |	复权状态 ( 1：后复权， 2：前复权，3：不复权）||	
+| turn |	换手率 |	[指定交易日的成交量 (股)/指定交易日的股票的流通股总股数(股)]*100%|
+| tradestatus |	交易状态 ( 1：正常交易 0：停牌）||	
+| pctChg |	涨跌幅（百分比） |	日涨跌幅 =[(指定交易日的收盘价-指定交易日前收盘价)/指定交易日前收盘价]*100%|
+| peTTM |	滚动市盈率 |	(指定交易日的股票收盘价 /指定交易日的每股盈余TTM)=(指定交易日的股票收盘价*截至当日公司总股本)/归属母公司股东净利润TTM|
+| pbMRQ |	市净率 |	(指定交易日的股票收盘价/指定交易日的每股净资产)=总市值/(最近披露的归属母公司股东的权益-其他权益工具) |
+| psTTM |	滚动市销率 |	(指定交易日的股票收盘价/指定交易日的每股销售额)=(指定交易日的股票收盘价*截至当日公司总股本)/营业总收入TTM |
+|pcfNcfTTM |	滚动市现率 |	(指定交易日的股票收盘价/指定交易日的每股现金流TTM)=(指定交易日的股票收盘价*截至当日公司总股本)/现金以及现金等价物净增加额TTM|
+| isST |	是否ST股，1是，0否 |	 |
 3. writedb.py 读取excel后，再写入mysql数据库。
 
 4. bi.py读取mysql数据绘制图形。
@@ -51,7 +79,8 @@ select dupont.code,codeinfo.codename 股票名称,year 年份,`quarter` 季度,p
   PRIMARY KEY (`tdate`)
 );
 
-2. dayk.py 获取某天前到某天前的数据。
+2. dayk_one.py 获取某天前到某天前的数据。
+
 
 3. writedb.py 读取excel后，再写入mysql数据库。
 
