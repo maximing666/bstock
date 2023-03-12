@@ -23,7 +23,7 @@ def download_data(day):
     for code in stock_df["code"]:
         print(day + " Downloading :" + code)
         #frequency：数据类型，默认为d，日k线；d=日k线、w=周、m=月、5=5分钟、15=15分钟、30=30分钟、60=60分钟k线数据，不区分大小写；指数没有分钟线数据；周线每周最后一个交易日才可以获取，月线每月最后一个交易日才可以获取
-        k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,tradestatus,pctChg,peTTM", start_date=day, end_date=day,frequency="w", adjustflag="3")
+        k_rs = bs.query_history_k_data_plus(code, "date,code,open,high,low,close,volume,amount,turn,pctChg", start_date=day, end_date=day,frequency="w", adjustflag="3")
         if (k_rs.error_code == '0'):
             # print("===",k_rs.get_row_data(),"---",k_rs.error_code,"++++",type(k_rs.get_row_data()))
             l.append(k_rs.get_row_data())   
@@ -33,7 +33,7 @@ def download_data(day):
     #data_df.to_csv("D:\\bstock\\download\\dayk\\"+nday+"demo_assignDayData.csv", encoding="gbk", index=False)
     
     result = pd.DataFrame(l, columns=k_rs.fields) 
-    result.to_csv(downloadpath + day + "demo_assignDayData.csv", encoding="gbk", index=False)
+    result.to_csv(downloadpath + day + "week_assignDayData.csv", encoding="gbk", index=False)
     # print(result)
 
 
