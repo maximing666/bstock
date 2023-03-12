@@ -7,8 +7,9 @@ output:
         toc_depth: 6
         number_sections: true
 ---
-## 1. 数据结构
-##### 1.1 数据表
+## 1.数据结构
+
+### 1.1 数据表
 
 mysql root 123456;webuser 123456
 CREATE TABLE `bstock`.`Untitled`  (
@@ -27,7 +28,8 @@ CREATE TABLE `bstock`.`Untitled`  (
   PRIMARY KEY (`tdate`)
 );
 
-### 2. dayk_one.py 获取某天前到某天前的数据。
+## 2. dayk_one.py 获取某天前到某天前的数据
+
 | 参数名称 |参数描述 |算法说明 |
 | --- | --- | --- |
 | date |交易所行情日期 | |
@@ -47,10 +49,11 @@ CREATE TABLE `bstock`.`Untitled`  (
 | pbMRQ |	市净率 |	(指定交易日的股票收盘价/指定交易日的每股净资产)=总市值/(最近披露的归属母公司股东的权益-其他权益工具) |
 | psTTM |	滚动市销率 |	(指定交易日的股票收盘价/指定交易日的每股销售额)=(指定交易日的股票收盘价*截至当日公司总股本)/营业总收入TTM |
 |pcfNcfTTM |	滚动市现率 |	(指定交易日的股票收盘价/指定交易日的每股现金流TTM)=(指定交易日的股票收盘价*截至当日公司总股本)/现金以及现金等价物净增加额TTM|
-| isST |	是否ST股，1是，0否 |	 |
-3. writedb.py 读取excel后，再写入mysql数据库。
+| isST |是否ST股，1是，0否 ||
 
-4. bi.py读取mysql数据绘制图形。
+## 3. writedb.py 读取excel后，再写入mysql数据库
+
+## 4. bi.py读取mysql数据绘制图形
 
 5. dupont.py 杜邦指标。
 dupontNitogr  净利润/营业总收入=净利率，反映企业销售获利率。
