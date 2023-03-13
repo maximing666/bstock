@@ -94,6 +94,9 @@ if __name__ == '__main__':
                     `tradestatus` int(4) NOT NULL COMMENT '交易状态', \
                     `pctchg` double(255, 6) Default NULL COMMENT '涨跌幅', \
                     `pettm` double(255, 6) NOT NULL COMMENT '滚动市盈率',  \
+                    `close_avg_three` double(255, 4) Default NULL COMMENT '收盘3日均价', \
+                    `volume_avg_three` bigint(255) Default NULL COMMENT '成交数量3日均价', \
+                    `amount_avg_three` double(255, 4) Default NULL COMMENT '成交金额3日均价', \
                     PRIMARY KEY (`tdate`));"%(filetb)
                 cur.execute(sql)
             sql="insert into `"+mysqldb+"`.`%s`(tdate,code,open,high,low,close,volume,amount,turn,tradestatus,pctchg,pettm) values ('%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s); "%(code,tdate,code,open,high,low,close,volume,amount,turn,tradestatus,pctchg,pettm)

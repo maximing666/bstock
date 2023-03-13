@@ -1,7 +1,7 @@
 import dayk
-import writedayk
+import write_dayk_one
 
 def main():
     dayk.main()
-    writedayk.main()
+    write_dayk_one.main()
 main()    

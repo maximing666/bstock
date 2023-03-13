@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 –*-
-import result_days_upcopy
+import result_days_up
 import requests
 import datetime
 import t3
@@ -18,7 +18,7 @@ def send_qyweixin(s, webhook):
     }
     r = requests.post(url=webhook, headers=headers, json=data)
     print(r)
-sendresult= str(result_days_upcopy.put_viewrecommend())
+sendresult= str(result_days_up.put_viewrecommend())
 #t = "[(sh.000116, 上证信用债100指数), (sh.603220, 中贝通信), (sz.000055, 方大集团), (sz.002521, 齐峰新材), (sz.002839, 张家港行), (sz.300286, 安科瑞), (sz.300445, 康斯特), (sz.300711, 广哈通信)]"
 #sendresult=str(t)
 sendresult = sendresult.replace('),',')\n')
