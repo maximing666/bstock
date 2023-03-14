@@ -55,9 +55,9 @@ if __name__ == '__main__':
             #for n in (range(3,41)):
             n=0
             td=(datetime.date.today() + datetime.timedelta(days = -n)).strftime("%Y-%m-%d")
-            sql_update_close_avg_three="update `"+tb+"` set close_avg_three=(SELECT AV(a.  close) FROM (select * from `"+tb+"` where tdate<='"+td+"' order by tdatedesc     limit 3) a) where tdate='"+td+"';"
-            sql_update_volume_avg_three="update `"+tb+"` set volume_avg_three=(SELECT AV(a.    volume) FROM (select * from `"+tb+"` where tdate<='"+td+"' order bytdate desc  limit 3) a) where tdate='"+td+"';"
-            sql_update_amount_avg_three="update `"+tb+"` set amount_avg_three=(SELECT AV(a.    amount) FROM (select * from `"+tb+"` where tdate<='"+td+"' order bytdate desc  limit 3) a) where tdate='"+td+"';"
+            sql_update_close_avg_three="update `"+tb+"` set close_avg_three=(SELECT AVG(a.close) FROM (select * from `"+tb+"` where tdate<='"+td+"' order by tdate  desc limit 3) a) where tdate='"+td+"';"
+            sql_update_volume_avg_three="update `"+tb+"` set volume_avg_three=(SELECT AVG(a.volume) FROM (select * from `"+tb+"` where tdate<='"+td+"' order by tdate desc  limit 3) a) where tdate='"+td+"';"
+            sql_update_amount_avg_three="update `"+tb+"` set amount_avg_three=(SELECT AVG(a.amount) FROM (select * from `"+tb+"` where tdate<='"+td+"' order by tdate desc  limit 3) a) where tdate='"+td+"';"
             cur.execute(sql_update_close_avg_three)
             cur.execute(sql_update_volume_avg_three)
             cur.execute(sql_update_amount_avg_three)
