@@ -55,7 +55,7 @@ CREATE TABLE `bstock`.`Untitled`  (
 
 ## 4. bi.py读取mysql数据绘制图形
 
-5. dupont.py 杜邦指标。
+## 5. dupont.py 杜邦指标。
 dupontNitogr  净利润/营业总收入=净利率，反映企业销售获利率。
 dupontROE	净资产收益率，说明企业利用净资产赚钱的能力越强，越高说明越暴利。
 dupontTaxBurden	净利润/利润总额，反映企业税负水平，该比值高则税负较低。净利润/利润总额=1-所得税/利润总额
@@ -65,11 +65,11 @@ dupontTaxBurden	净利润/利润总额，反映企业税负水平，该比值高
 7. codeinfo.py 基本资料
 
 8.result_choice.py 收益高查询结果。
-  result_days_up.py 近期连涨查询结果。
-  result_5days_up.py 近期5日线连涨查询结果。
+  result_days_up_one.py 近期连涨查询结果。
+  result_days_up_three_avg.py 近期3日均线连涨查询结果。
     
 
-9. sendqywx.py 发送结果到企微。
+1. sendqywx.py 发送结果到企微。
 
 10.main.py 主程序。
 
