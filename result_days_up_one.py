@@ -63,10 +63,17 @@ def fetch():
             r_len=len(r)
             #print(r)
             if r_len == updays: 
-                #  涨跌幅、成交金额连续上涨     
-                if all([r[n][3]>0  for n in range(r_len)]) and all([r[n][3] > r[n+1][3] and r[n][4] > r[n+1][4] for n in range(r_len -1)]):
+                #  涨跌幅、成交金额连续上涨 
+                #for n in range(r_len):
+                    #x=r[0][1]  
+                    #y=r[0][3]>0.8
+                     
+                if all([r[n][3]>0.03  for n in range(r_len)]) and all([r[n][3] > r[n+1][3] and r[n][4] > r[n+1][4] for n in range(r_len -1)]):
                     # print(tb,'true')
-                    code_list.append((r[0][1],r[0][2],'%.2f%%'%((r[0][5]/r[updays-1][5]-1)*100)))
+                    #增长3%以上的才统计
+                    v=((r[0][5]/r[updays-1][5]-1)*100)
+                    if v > 3 :
+                        code_list.append((r[0][1],r[0][2],'%.2f%%'%((r[0][5]/r[updays-1][5]-1)*100)))
         #按百分比进行排序
         code_list=natsorted(seq=code_list,key=lambda x:x[2],reverse=True)
         print(updays,"days,result long:",len(code_list),code_list)        
@@ -127,7 +134,7 @@ def put_viewrecommend():
         #print("out",tbs) 
         sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
             `vdate` date NOT NULL COMMENT '推荐日期', \
-            `vtext` varchar(1024) NOT NULL COMMENT '推荐内容';"%(viewtb)
+            `vtext` varchar(10240) NOT NULL COMMENT '推荐内容';"%(viewtb)
         cur.execute(sql)
     sql="insert into `"+mysqldb+"`.`%s`(vdate,vtext) values ('%s','%s'); "%(viewtb,datetime.datetime.now().strftime('%Y-%m-%d'),vtext)
     #print(sql) 
