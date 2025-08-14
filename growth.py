@@ -39,6 +39,7 @@ sql = "show tables;"
 codes = cur.execute(sql)
 tbs = [i[0] for i in cur.fetchall()]
 
+
 filetb = 'growth'
 # sql="drop table `%s`;"%(filetb)
 # print(sql)
@@ -63,7 +64,7 @@ else:
     tbs.remove('dupont')
     tbs.remove('growth')
     tbs.remove('codeinfo')
-    tbs.remove('viewrecommend')
+    # tbs.remove('viewrecommend')
 i = 1
 while(i<1000):
     k = str(i)        
@@ -80,7 +81,7 @@ lg = bs.login()
 # 显示登陆返回信息
 print('login respond error_code:'+lg.error_code)
 print('login respond  error_msg:'+lg.error_msg)
-
+sleep(10)
 today = datetime.date.today()
 #3个月前的日期
 threemonthago = today + relativedelta(months=-3)
