@@ -9,6 +9,15 @@ import shutil
 import configparser
 # import t3
 
+def runByOs():
+    if os.name == 'nt':
+        print('Windows')
+        os_name = 'Windows'
+        return os_name
+    elif os.name == 'posix':
+        print('类 Unix (Linux/macOS)')
+        os_name = 'Linux'
+        return os_name
 
 #生成configparser对象
 config = configparser.ConfigParser()
@@ -22,8 +31,13 @@ mysqluser = config.get('mysql', 'user')
 mysqlpwd = config.get('mysql', 'password')
 mysqldb = config.get('mysql', 'daykdb')
 mysqlport = config.get('mysql', 'port')
-downloadpath = config.get('dayk', 'downloadpath')
-importedpath = config.get('dayk', 'importedpath')
+os_name = runByOs()
+if os_name == 'Windows':
+    downloadpath = config.get('dayk', 'downloadpath_win')
+    importedpath = config.get('dayk', 'importedpath_win')
+elif os_name == 'Linux':
+    downloadpath = config.get('dayk', 'downloadpath_linux')
+    importedpath = config.get('dayk', 'importedpath_linux')
 
 connection = pymysql.connect(host = mysqlhost, #host属性
                             user = mysqluser, #用户名 
