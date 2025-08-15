@@ -21,13 +21,15 @@ mysqlhost = config.get('mysql', 'host')
 mysqluser = config.get('mysql', 'user')
 mysqlpwd = config.get('mysql', 'password')
 mysqldb = config.get('mysql', 'daykdb')
+mysqlport = config.get('mysql', 'port')
 downloadpath = config.get('dayk', 'downloadpath')
 importedpath = config.get('dayk', 'importedpath')
 
 connection = pymysql.connect(host = mysqlhost, #host属性
                             user = mysqluser, #用户名 
                             password = mysqlpwd,  #此处填登录数据库的密码
-                            db = mysqldb #数据库名
+                            db = mysqldb, #数据库名
+                            port = int(mysqlport) #端口
                             )
 #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
 #光标对象作用是：、创建、删除、写入、查询等等

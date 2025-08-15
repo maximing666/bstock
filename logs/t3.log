@@ -20,3 +20,40 @@ Traceback (most recent call last):
   File "C:\ProgramData\Miniconda3\envs\bstock\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'vtext' at row 1")
+Traceback (most recent call last):
+  File "C:\Users\max\.conda\envs\bstock\Lib\site-packages\pymysql\connections.py", line 649, in connect
+    sock = socket.create_connection(
+        (self.host, self.port), self.connect_timeout, **kwargs
+    )
+  File "C:\Users\max\.conda\envs\bstock\Lib\socket.py", line 864, in create_connection
+    raise exceptions[0]
+  File "C:\Users\max\.conda\envs\bstock\Lib\socket.py", line 849, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\github\bstock\growth.py", line 30, in <module>
+    connection = pymysql.connect(host = mysqlhost, #host属性
+                                 user = mysqluser, #用户名
+                                 password = mysqlpwd,  #此处填登录数据库的密码
+                                 db = mysqldb #数据库名
+                                 )
+  File "C:\Users\max\.conda\envs\bstock\Lib\site-packages\pymysql\connections.py", line 361, in __init__
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\max\.conda\envs\bstock\Lib\site-packages\pymysql\connections.py", line 716, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '120.46.46.142' (timed out)")
+Traceback (most recent call last):
+  File "D:\github\bstock\growth.py", line 31, in <module>
+    connection = pymysql.connect(host = mysqlhost, #host属性
+                                 user = mysqluser, #用户名
+    ...<2 lines>...
+                                 port = mysqlport #MySQL端口
+                                 )
+  File "C:\Users\max\.conda\envs\bstock\Lib\site-packages\pymysql\connections.py", line 297, in __init__
+    raise ValueError("port should be of type int")
+ValueError: port should be of type int

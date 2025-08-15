@@ -7,6 +7,13 @@ output:
         toc_depth: 6
         number_sections: true
 ---
+## 0. 安装依赖包
+conda activate bstock
+pip install baostock -i https://pypi.org/simple 
+pip install python
+pip install pandas
+
+
 ## 1.数据结构
 
 ### 1.1 数据表
