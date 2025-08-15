@@ -5,8 +5,18 @@ import datetime
 import time
 import configparser
 # import t3
+import os
 
-
+def runByOs():
+    if os.name == 'nt':
+        print('Windows')
+        os_name = 'Windows'
+        return os_name
+    elif os.name == 'posix':
+        print('类 Unix (Linux/macOS)')
+        os_name = 'Linux'
+        return os_name
+        
 def download_data(day):
     #### 登陆系统 ####
     lg = bs.login()
@@ -51,7 +61,14 @@ if __name__=='__main__':
     #获取配置文件变量值
     startday = int(config.get('dayk', 'startday'))
     endday = int(config.get('dayk', 'endday'))
-    downloadpath = config.get('dayk', 'downloadpath')
+    os_name = runByOs()
+    if os_name == 'Windows':
+        downloadpath = config.get('dayk', 'downloadpath_win')
+        importedpath = config.get('dayk', 'importedpath_win')
+    elif os_name == 'Linux':
+        downloadpath = config.get('dayk', 'downloadpath_linux')
+        importedpath = config.get('dayk', 'importedpath_linux')
+    
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
     # startday = -25
     # endday = -21
