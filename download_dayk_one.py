@@ -65,9 +65,13 @@ if __name__=='__main__':
     if os_name == 'Windows':
         downloadpath = config.get('dayk', 'downloadpath_win')
         importedpath = config.get('dayk', 'importedpath_win')
+        os.mkdir(downloadpath)
+        os.mkdir(importedpath)
     elif os_name == 'Linux':
         downloadpath = config.get('dayk', 'downloadpath_linux')
         importedpath = config.get('dayk', 'importedpath_linux')
+        os.mkdir(downloadpath)
+        os.mkdir(importedpath)
     
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
     # startday = -25
