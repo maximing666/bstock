@@ -1,5 +1,5 @@
 # -*- encoding:utf-8 -*-
-from asyncio.windows_events import NULL
+#from asyncio.windows_events import NULL
 from time import sleep
 import pymysql
 from pymysql import IntegrityError
@@ -23,7 +23,7 @@ def runByOs():
 config = configparser.ConfigParser()
 #读取配置文件
 # conffilename = r'E:\github\bstock\config\config.ini'
-conffilename = './config/config.ini'
+conffilename = os.path.join("config", "config.ini")
 config.read(conffilename, encoding='utf-8')
 #获取配置文件变量值
 mysqlhost = config.get('mysql', 'host')
@@ -54,7 +54,8 @@ def eachFile(filepath):
     pathDir = os.listdir(filepath)
     list1 = []
     for allDir in pathDir:
-        child = os.path.join('%s\%s' % (filepath, allDir))
+        # child = os.path.join('%s\%s' % (filepath, allDir))
+        child = os.path.join(filepath, allDir)
         list1.append(child )
     return list1
 

@@ -52,26 +52,30 @@ if __name__=='__main__':
     #开始时间
     starttime = time.time()
 
+
+    
     #生成configparser对象
     config = configparser.ConfigParser()
     #读取配置文件
     # conffilename = r'E:\github\bstock\config\config.ini'
-    conffilename = r'.\\config\\config.ini'
+    # conffilename = r'.\\config\\config.ini'
+    conffilename = os.path.join("config", "config.ini")
     config.read(conffilename, encoding='utf-8')
-    #获取配置文件变量值
-    startday = int(config.get('dayk', 'startday'))
-    endday = int(config.get('dayk', 'endday'))
+
     os_name = runByOs()
     if os_name == 'Windows':
         downloadpath = config.get('dayk', 'downloadpath_win')
         importedpath = config.get('dayk', 'importedpath_win')
-        os.mkdir(downloadpath)
-        os.mkdir(importedpath)
     elif os_name == 'Linux':
         downloadpath = config.get('dayk', 'downloadpath_linux')
         importedpath = config.get('dayk', 'importedpath_linux')
-        os.mkdir(downloadpath)
-        os.mkdir(importedpath)
+    os.makedirs(downloadpath, exist_ok=True)
+    os.makedirs(importedpath, exist_ok=True)
+
+    #获取配置文件变量值
+    startday = int(config.get('dayk', 'startday'))
+    endday = int(config.get('dayk', 'endday'))
+
     
     #获取从startday天前到endday天前的数据。startday=-1表示昨天，startday=-2表示前天
     # startday = -25
