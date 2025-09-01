@@ -14,6 +14,10 @@ while true; do
         python write_dayk_one.py
         echo "写入完成:"$(date +%H%M%S)
 
+        echo "开始执行result_days_up_one.py"
+        python result_days_up_one.py
+        echo "完成执行result_days_up_one.py"
+
         if [[ "$now_d" == "01" || "$now_d" == "15" ]]; then
             echo "开始执行growth.py"
             python growth.py

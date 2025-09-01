@@ -21,6 +21,7 @@ def fetch():
     mysqluser = config.get('mysql', 'user')
     mysqlpwd = config.get('mysql', 'password')
     mysqldb = config.get('mysql', 'daykdb')
+    mysqlport = config.get('mysql', 'port')
     updays = int(config.get('result_days_up', 'updays'))
 
 
@@ -28,7 +29,8 @@ def fetch():
     connection = pymysql.connect(host = mysqlhost, #host属性
                                 user = mysqluser, #用户名 
                                 password = mysqlpwd,  #此处填登录数据库的密码
-                                db = mysqldb #数据库名
+                                db = mysqldb, #数据库名
+                                port = int(mysqlport)
                                 )
     #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
     #光标对象作用是：、创建、删除、写入、查询等等
@@ -115,8 +117,8 @@ def put_viewrecommend():
     connection = pymysql.connect(host = mysqlhost, #host属性
                                 user = mysqluser, #用户名 
                                 password = mysqlpwd,  #此处填登录数据库的密码
-                                db = mysqldb #数据库名
-                                port = mysqlport
+                                db = mysqldb, #数据库名
+                                port = int(mysqlport)
                                 )
     #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
     #光标对象作用是：、创建、删除、写入、查询等等
@@ -136,7 +138,7 @@ def put_viewrecommend():
         #print("out",tbs) 
         sql="CREATE TABLE `"+mysqldb+"`.`%s`  (\
             `vdate` date NOT NULL COMMENT '推荐日期', \
-            `vtext` varchar(10240) NOT NULL COMMENT '推荐内容';"%(viewtb)
+            `vtext` varchar(10240) NOT NULL COMMENT '推荐内容');"%(viewtb)
         cur.execute(sql)
     sql="insert into `"+mysqldb+"`.`%s`(vdate,vtext) values ('%s','%s'); "%(viewtb,datetime.datetime.now().strftime('%Y-%m-%d'),vtext)
     #print(sql) 
