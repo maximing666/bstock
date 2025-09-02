@@ -7,19 +7,19 @@ while true; do
     # 如果当日时间大于等于21:30:00，则执行下载数据
     if [[ "$now_hms" > "213000" ]] || [[ "$now_hms" == "213000" ]]; then 
         cd /opt/conda/bstock/ && pip install -r requirements_copy.txt
-        echo "开始下载数据"
+        echo "开始下载数据到本地文件"
         python download_dayk_one.py
         sleep 10
-        echo "开始写入数据"
+        echo "开始写入数据到MySQL数据库"
         python write_dayk_one.py
         echo "写入完成:"$(date +%H%M%S)
 
-        echo "开始执行result_days_up_one.py"
+        echo "开始执行result_days_up_one.py,生成推荐表viewrecommend"
         python result_days_up_one.py
         echo "完成执行result_days_up_one.py"
 
         if [[ "$now_d" == "01" || "$now_d" == "15" ]]; then
-            echo "开始执行growth.py"
+            echo "开始执行growth.py,生成季报表"
             python growth.py
             echo "完成执行growth.py"
         fi
