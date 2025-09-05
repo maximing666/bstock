@@ -22,13 +22,14 @@ def fetch():
     mysqlpwd = config.get('mysql', 'password')
     mysqldb = config.get('mysql', 'daykdb')
     updays = int(config.get('result_days_up', 'updays'))
-
+    mysqlport = config.get('mysql', 'port')
 
     #连接MySQL数据库
     connection = pymysql.connect(host = mysqlhost, #host属性
                                 user = mysqluser, #用户名 
                                 password = mysqlpwd,  #此处填登录数据库的密码
-                                db = mysqldb #数据库名
+                                db = mysqldb, #数据库名
+                                port = int(mysqlport)
                                 )
     #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
     #光标对象作用是：、创建、删除、写入、查询等等
@@ -40,7 +41,7 @@ def fetch():
     for i in tbs1:
         if i.startswith("sh.6") or i.startswith("sz."):
             tbs.append(i)
-          
+    
     code_list=[]    
     viewresult=[]
     while len(code_list) >= 0 :
@@ -89,13 +90,15 @@ def put_viewrecommend():
     mysqluser = config.get('mysql', 'user')
     mysqlpwd = config.get('mysql', 'password')
     mysqldb = config.get('mysql', 'daykdb')
+    mysqlport = config.get('mysql', 'port')
 
 
     #连接MySQL数据库
     connection = pymysql.connect(host = mysqlhost, #host属性
                                 user = mysqluser, #用户名 
                                 password = mysqlpwd,  #此处填登录数据库的密码
-                                db = mysqldb #数据库名
+                                db = mysqldb, #数据库名
+                                port = int(mysqlport)
                                 )
     #创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
     #光标对象作用是：、创建、删除、写入、查询等等
